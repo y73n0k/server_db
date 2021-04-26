@@ -1,4 +1,3 @@
-import os
 from datetime import timedelta
 from requests import get
 
@@ -13,7 +12,7 @@ from flask_jwt_extended import (
 from flask_restful import Api
 from werkzeug.exceptions import default_exceptions
 
-from init_app import app
+from init_app import app, PORT
 from data import db_session
 from data.users import User
 from resources import user_resources, comment_resources, video_resources
@@ -79,7 +78,7 @@ def get_me():
         if current_user is None:
             return jsonify({"msg": "Some problems with token"})
         slug = current_user.slug
-        return jsonify(get("http://127.0.0.1:4610/users/" + slug).json())
+        return jsonify(get(f"http://127.0.0.1:{PORT}/users/" + slug).json())
 
 
 @app.before_first_request
@@ -88,4 +87,4 @@ def init_db():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=os.environ.get("PORT", 5000), debug=False)
+    app.run(host="0.0.0.0", port=PORT)

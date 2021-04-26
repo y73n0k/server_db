@@ -11,6 +11,7 @@ from data.users import User
 from data.videos import Video
 
 from .video_parser import parser
+from init_app import PORT
 
 
 ALLOWED_EXT = {"mp4", "webm"}
@@ -43,7 +44,7 @@ class VideoResource(Resource):
         answer["video"]["comments"] = []
         for comment in video.comments:
             data = requests.get(
-                "http://127.0.0.1:4610/comments/" + str(comment.id)
+                f"http://127.0.0.1:{PORT}/comments/" + str(comment.id)
             ).json()["comment"]
             answer["video"]["comments"].append(data)
         return jsonify(answer)
