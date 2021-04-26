@@ -1,6 +1,0 @@
-AddHandler fcgid-script .fcgi
-Options +FollowSymLinks
-RewriteEngine On
-RewriteBase /
-RewriteCond %{REQUEST_URI} !(cgi-bin/api.fcgi)
-RewriteRule ^(.*)$ cgi-bin/api.fcgi/$1 [L]
